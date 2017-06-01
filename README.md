@@ -1,4 +1,3 @@
-ud989-cat-clicker-ko-starter
-============================
+Cat Click-o-tron 9000 
 
-ud989-cat-clicker-ko-starter
+(based of ud989-cat-clicker-ko-starter)
