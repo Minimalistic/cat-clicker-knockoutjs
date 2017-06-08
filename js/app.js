@@ -1,34 +1,36 @@
-var Cat = function() {
-    this.clickCount = ko.observable(0);
-    this.name = ko.observable('Tabby');
-    this.imgSrc = ko.observable('img/434164568_fea0ad4013_z.jpg');
-    this.imgAttribution = ko.observable('https://www.flickr.com/photos/bigsomething')
-    this.nicknames = ko.observableArray([
-        'Beef',
-        'Gob', 
-        'Lucifer',
-        'Mop' 
-        ]);
-    this.level = ko.observable('Newborn');
+var Cat = function(data) {
+    this.clickCount = ko.observable(data.clickCount);
+    this.name = ko.observable(data.name);
+    this.imgSrc = ko.observable(data.imgSrc);
+    this.imgAttribution = ko.observable(data.imgAttribution);
+    this.nicknames = ko.observableArray(data.nicknames);
 
-
-    this.levelCounter = ko.computed(function() {
-        if(this.clickCount()<10){
-            return this.level('Infant');
-        } else if(this.clickCount()<20){
-            return this.level('Newborn');  
-        } else if(this.clickCount()<30){
-            return this.level('Teen');
+    this.title = ko.computed(function() {
+        var title;
+        var clicks = this.clickCount();
+        if (clicks < 10) {
+            title = 'Newborn';
+        } else if (clicks < 20) {
+            title = 'Infant';  
+        } else if (clicks < 30) {
+            title = 'Teen';
         } else {
-            return this.level('Adult');
+            title = 'Adult';
         }
+        return title;
     }, this);
 }
 
 var ViewModel = function() {
     var self = this;
 
-    this.currentCat = ko.observable( new Cat() );
+    this.currentCat = ko.observable( new Cat({
+        clickCount: 0,
+        name: 'Charlie',
+        imgSrc: 'img/charlie_IMG_0231.jpg',
+        imgAttribution: 'Jason Marsh',
+        nicknames: ['CharChar', 'Turd', 'Fluff Butt', 'Chuck']
+    }) );
 
     this.incrementCounter = function() {
         self.currentCat().clickCount(self.currentCat().clickCount() + 1);
